@@ -17,7 +17,7 @@ html(lang="es")
             b-input(type="password" placeholder="Contraseña" expanded)
             p.control
               button.button.is-primary(@click="login") Ingresar
-      
+  
       section.section: .container
         .notification: .content: h2 Clientes ({{clientes.length}})
         b-table(:narrowed="true",  :data="clientes")
@@ -28,6 +28,7 @@ html(lang="es")
             b-table-column(label="Correo") {{cli.row.correo}}
             b-table-column(label="Balones") {{cli.row.balones}}
             b-table-column(label="Monto total") {{cli.row.monto}}
+            b-table-column(label="Tiempo de armado") {{cli.row.tiempo}}
             b-table-column(label=""): b-tooltip(label="Eliminar"): button.button(@click="deleteClient(cli.row, cli.index)"): b-icon(icon="close")
             
       section.section: .container
