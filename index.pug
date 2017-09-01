@@ -28,7 +28,7 @@ html(lang="es")
             b-table-column(label="Correo") {{cli.row.correo}}
             b-table-column(label="Balones") {{cli.row.balones}}
             b-table-column(label="Monto total") {{cli.row.monto}}
-            b-table-column(label="Tiempo de armado") {{cli.row.tiempo}}
+            b-table-column(label="Tiempo (segs)") {{cli.row.tiempo}}
             b-table-column(label=""): b-tooltip(label="Eliminar"): button.button(@click="deleteClient(cli.row, cli.index)"): b-icon(icon="close")
             
       section.section: .container
