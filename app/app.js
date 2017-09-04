@@ -2,12 +2,38 @@ Vue.use(Buefy.default);
 
 var App = new Vue({
     el: '#app',
-    data: {       
+    data: {
+        session : false,
         clientes: [],
         vendedores: [],
-        newSeller : []
+        newSeller : [],
+        user : {},
+        loadingComponent : null
     },
     methods: {
+        loginAdmin : function(){
+            
+            if(App.user.u == null || App.user.p == null){
+              this.$dialog.alert('Ingresa los datos de acceso');
+              return false;
+            }
+            App.loadingComponent = this.$loading.open();
+            fetch('https://dragonbarbudo.com/api/grabasa/admin/', {
+              method: "POST",
+              body: JSON.stringify(App.user)
+            })
+            .then(function(u){ return u.json(); })
+            .then(function(json){
+              App.loadingComponent.close();
+              if(json==1){
+                App.session = true;
+              } else {
+                App.$dialog.alert('Error en los datos de acceso');
+              }
+              
+            }); 
+        },
+
         addSeller : function(){
             var theseller = {'usuario':this.newSeller.usuario, 'contrasena':this.newSeller.contrasena, 'adidas':0, 'reebok':0};
             
@@ -23,9 +49,6 @@ var App = new Vue({
                     App.vendedores.push(json);
                 }
             );
-        },
-        login : function(){
-            console.log('logingg');
         },
         saveSeller : function(id, row){
             fetch('https://dragonbarbudo.com/api/grabasa/seller/update/',{ method: "POST", body: JSON.stringify(row) })

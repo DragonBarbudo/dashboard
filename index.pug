@@ -9,51 +9,51 @@ html(lang="es")
 
   body
     #app
-      //section.section: .container
-        .notification
-          .content: h1 Ingresar
-          b-field(grouped)
-            b-input(placeholder="Usuario" expanded)
-            b-input(type="password" placeholder="Contraseña" expanded)
-            p.control
-              button.button.is-primary(@click="login") Ingresar
-  
-      section.section: .container
-        .notification: .content: h2 Clientes ({{clientes.length}})
-        b-table(:narrowed="true",  :data="clientes")
-          template(scope="cli")
-            b-table-column(label="ID") {{cli.row.id}}
-            b-table-column(label="Nombre") {{cli.row.nombre}}
-            b-table-column(label="Telefono") {{cli.row.telefono}}
-            b-table-column(label="Correo") {{cli.row.correo}}
-            b-table-column(label="Balones") {{cli.row.balones}}
-            b-table-column(label="Monto total") {{cli.row.monto}}
-            b-table-column(label="Tiempo (segs)") {{cli.row.tiempo}}
-            b-table-column(label=""): b-tooltip(label="Eliminar"): button.button(@click="deleteClient(cli.row, cli.index)"): b-icon(icon="close")
-            
-      section.section: .container
-        .notification
-          .content
-            h2 Vendedores ({{vendedores.length}})
-            p Agregar nuevo vendedor
+      div(v-if="!session")
+        section.section: .container
+          .notification
+            .content: h1 Ingresar
             b-field(grouped)
-              b-input(placeholder="Usuario" expanded v-model="newSeller.usuario")
-              b-input(type="password" placeholder="Contraseña" expanded v-model="newSeller.contrasena")
+              b-input(placeholder="Usuario" expanded v-model="user.u")
+              b-input(type="password" placeholder="Contraseña" expanded v-model="user.p")
               p.control
-                button.button.is-primary(@click="addSeller()") Añadir
+                button.button.is-primary(@click="loginAdmin()") Ingresar
+      div(v-if="session")
+        section.section: .container
+          .notification: .content: h2 Clientes ({{clientes.length}})
+          b-table(:narrowed="true",  :data="clientes")
+            template(scope="cli")
+              b-table-column(label="ID") {{cli.row.id}}
+              b-table-column(label="Nombre") {{cli.row.nombre}}
+              b-table-column(label="Telefono") {{cli.row.telefono}}
+              b-table-column(label="Correo") {{cli.row.correo}}
+              b-table-column(label="Balones") {{cli.row.balones}}
+              b-table-column(label="Monto total") {{cli.row.monto}}
+              b-table-column(label="Tiempo (segs)") {{cli.row.tiempo}}
+              b-table-column(label=""): b-tooltip(label="Eliminar"): button.button(@click="deleteClient(cli.row, cli.index)"): b-icon(icon="close")
+              
+        section.section: .container
+          .notification
+            .content
+              h2 Vendedores ({{vendedores.length}})
+              p Agregar nuevo vendedor
+              b-field(grouped)
+                b-input(placeholder="Usuario" expanded v-model="newSeller.usuario")
+                b-input(type="password" placeholder="Contraseña" expanded v-model="newSeller.contrasena")
+                p.control
+                  button.button.is-primary(@click="addSeller()") Añadir
 
-        b-table(:narrowed="true",  :data="vendedores")
-          template(scope="ven")
-            b-table-column(label="ID") {{ven.row.id}}
-            b-table-column(label="Usuario") {{ven.row.usuario}}
-            b-table-column(label="Contraseña") {{ven.row.contrasena}}
-            b-table-column(label="Adidas"): b-input(type="number"  v-model="ven.row.adidas")
-            b-table-column(label="Reebok"): b-input(type="number" v-model="ven.row.reebok")
-            b-table-column(label=""): b-tooltip(label="Guardar cambios"): button.button.is-primary(@click="saveSeller(ven.row.id, ven.row)"): b-icon(icon="save")
-            b-table-column(label=""): b-tooltip(label="Eliminar"): button.button(@click="deleteSeller(ven.row, ven.index)"): b-icon(icon="close")
-          
-    footer.footer
-      .container
+          b-table(:narrowed="true",  :data="vendedores")
+            template(scope="ven")
+              b-table-column(label="ID") {{ven.row.id}}
+              b-table-column(label="Usuario") {{ven.row.usuario}}
+              b-table-column(label="Contraseña") {{ven.row.contrasena}}
+              b-table-column(label="Adidas"): b-input(type="number"  v-model="ven.row.adidas")
+              b-table-column(label="Reebok"): b-input(type="number" v-model="ven.row.reebok")
+              b-table-column(label=""): b-tooltip(label="Guardar cambios"): button.button.is-primary(@click="saveSeller(ven.row.id, ven.row)"): b-icon(icon="save")
+              b-table-column(label=""): b-tooltip(label="Eliminar"): button.button(@click="deleteSeller(ven.row, ven.index)"): b-icon(icon="close")
+            
+
     script(src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js")
     script(src="https://unpkg.com/buefy@0.5.1")
