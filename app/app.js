@@ -18,7 +18,7 @@ var App = new Vue({
               return false;
             }
             App.loadingComponent = this.$loading.open();
-            fetch('https://dragonbarbudo.com/api/grabasa/admin/', {
+            fetch('https://app-1506882288.000webhostapp.com/api/grabasa/admin/', {
               method: "POST",
               body: JSON.stringify(App.user)
             })
@@ -38,7 +38,7 @@ var App = new Vue({
             var theseller = {'usuario':this.newSeller.usuario, 'contrasena':this.newSeller.contrasena, 'adidas':0, 'reebok':0};
             
             
-            fetch('https://dragonbarbudo.com/api/grabasa/seller/add/',{ method: "POST", body: JSON.stringify(theseller) })
+            fetch('https://app-1506882288.000webhostapp.com/api/grabasa/seller/add/',{ method: "POST", body: JSON.stringify(theseller) })
             .then(function(u){ return u.json();} )
             .then(
                 function(json){ 
@@ -51,7 +51,7 @@ var App = new Vue({
             );
         },
         saveSeller : function(id, row){
-            fetch('https://dragonbarbudo.com/api/grabasa/seller/update/',{ method: "POST", body: JSON.stringify(row) })
+            fetch('https://app-1506882288.000webhostapp.com/api/grabasa/seller/update/',{ method: "POST", body: JSON.stringify(row) })
                 .then(function(u){ return u.json();} )
                 .then(
                     function(json){ 
@@ -62,7 +62,7 @@ var App = new Vue({
         },
         deleteClient : function(row, indx){
             this.clientes.splice(indx, 1);
-            fetch('https://dragonbarbudo.com/api/grabasa/client/delete/',{ method: "POST", body: JSON.stringify(row) })
+            fetch('https://app-1506882288.000webhostapp.com/api/grabasa/client/delete/',{ method: "POST", body: JSON.stringify(row) })
                 .then(function(u){ return u.json();} )
                 .then(
                     function(json){ 
@@ -73,7 +73,7 @@ var App = new Vue({
         },
         deleteSeller : function(row, indx){
             this.vendedores.splice(indx, 1);
-            fetch('https://dragonbarbudo.com/api/grabasa/seller/delete/',{ method: "POST", body: JSON.stringify(row) })
+            fetch('https://app-1506882288.000webhostapp.com/api/grabasa/seller/delete/',{ method: "POST", body: JSON.stringify(row) })
                 .then(function(u){ return u.json();} )
                 .then(
                     function(json){ 
@@ -87,7 +87,7 @@ var App = new Vue({
 })
 
 
-fetch('https://dragonbarbudo.com/api/grabasa/client/get/').then(
+fetch('https://app-1506882288.000webhostapp.com/api/grabasa/client/get/').then(
     function(u){ return u.json();}
   ).then(
     function(json){
@@ -97,7 +97,7 @@ fetch('https://dragonbarbudo.com/api/grabasa/client/get/').then(
     }
 );
 
-fetch('https://dragonbarbudo.com/api/grabasa/seller/get/').then(
+fetch('https://app-1506882288.000webhostapp.com/api/grabasa/seller/get/').then(
     function(u){ return u.json();}
   ).then(
     function(json){
